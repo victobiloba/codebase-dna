@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codebase DNA: See Any GitHub Repository as a Living Organism</title>
+  <meta name="description" content="Paste a GitHub repo and watch it come alive: modules become organs, imports become veins, dead code shows up as scar tissue. Understand any codebase in seconds." />
+  <meta name="theme-color" content="#04060f" />
+  <meta property="og:title" content="Codebase DNA" />
+  <meta property="og:description" content="Every codebase is alive. See yours." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="organism" aria-label="Interactive visualisation of the repository as an organism" role="img"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Top bar -->
+  <header class="topbar glass">
+    <a class="brand" href="./" id="brand-link" aria-label="Codebase DNA home">
+      <svg class="helix" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M9 3c0 7 14 7 14 13S9 22 9 29" />
+        <path d="M23 3c0 7-14 7-14 13s14 6 14 13" />
+        <path class="rungs" d="M11 7h10M12.5 11h7M12.5 21h7M11 25h10" />
+      </svg>
+      <span>Codebase<b>DNA</b></span>
+    </a>
+    <form class="repo-form compact" id="topbar-form" autocomplete="off">
+      <input id="topbar-input" name="repo" type="text" placeholder="owner/repo" aria-label="GitHub repository" spellcheck="false" />
+      <button type="submit" id="topbar-submit" class="btn btn-primary">Sequence</button>
+    </form>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="report-btn" title="Copy health report (Markdown)" aria-label="Copy health report as Markdown">
+        <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+      </button>
+      <button class="icon-btn" id="share-btn" title="Copy share link" aria-label="Copy share link">
+        <svg viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+      </button>
+      <button class="icon-btn" id="export-btn" title="Download PNG" aria-label="Download PNG">
+        <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+      </button>
+      <button class="icon-btn" id="token-btn" title="GitHub token (optional)" aria-label="GitHub token settings">
+        <svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9m-3 3 3 3m-6 0 2 2"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Landing hero -->
+  <main id="hero" class="hero">
+    <p class="eyebrow"><span class="pulse-dot"></span> Living code intelligence</p>
+    <h1>Every codebase<br /><span class="grad">is alive.</span></h1>
+    <p class="lede">Paste a GitHub repo and watch it come to life. Modules become <em>organs</em>, imports become <em>veins</em>, and dead code shows up as <em>scar&nbsp;tissue</em>. Find the risky files and the unused ones before you change a line.</p>
+    <form class="repo-form big glass" id="hero-form" autocomplete="off">
+      <svg class="gh" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5Z"/></svg>
+      <input id="hero-input" name="repo" type="text" placeholder="github.com/owner/repo" aria-label="GitHub repository URL" spellcheck="false" autofocus />
+      <button type="submit" id="hero-submit" class="btn btn-primary btn-lg">
+        Sequence DNA
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+      </button>
+    </form>
+    <div class="examples" role="list" aria-label="Example repositories">
+      <span class="examples-label">Try:</span>
+      <button class="chip" role="listitem" data-repo="expressjs/express" id="ex-express">expressjs/express</button>
+      <button class="chip" role="listitem" data-repo="pallets/flask" id="ex-flask">pallets/flask</button>
+      <button class="chip" role="listitem" data-repo="sveltejs/svelte" id="ex-svelte">sveltejs/svelte</button>
+      <button class="chip" role="listitem" data-repo="gin-gonic/gin" id="ex-gin">gin-gonic/gin</button>
+      <button class="chip" role="listitem" data-repo="axios/axios" id="ex-axios">axios/axios</button>
+    </div>
+    <button class="ghost-link" id="explore-demo">or explore the sample organism ↓</button>
+  </main>
+
+  <!-- Side panel -->
+  <aside id="panel" class="panel glass" aria-label="Organism report">
+    <div class="panel-head">
+      <div>
+        <p class="eyebrow small">Specimen</p>
+        <h2 id="repo-name">—</h2>
+        <p id="repo-desc" class="muted"></p>
+      </div>
+      <a id="repo-link" class="icon-btn" target="_blank" rel="noopener" title="Open on GitHub" aria-label="Open on GitHub">
+        <svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+      </a>
+    </div>
+
+    <div class="vitality">
+      <svg viewBox="0 0 120 120" class="ring" aria-hidden="true">
+        <defs>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="hsl(175 100% 60%)" />
+            <stop offset="1" stop-color="hsl(285 100% 70%)" />
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="50" class="ring-bg" />
+        <circle cx="60" cy="60" r="50" class="ring-fg" id="vitality-ring" />
+      </svg>
+      <div class="vitality-text">
+        <span id="vitality-score">0</span>
+        <small>vitality</small>
+      </div>
+      <div class="vitality-meta">
+        <p id="vitality-verdict" class="verdict">—</p>
+        <p class="muted small" id="vitality-note">Based on modularity, dead code and hotspots.</p>
+      </div>
+    </div>
+
+    <dl class="stats">
+      <div><dt>Cells</dt><dd id="stat-cells">0</dd></div>
+      <div><dt>Organs</dt><dd id="stat-organs">0</dd></div>
+      <div><dt>Veins</dt><dd id="stat-veins">0</dd></div>
+      <div class="scar"><dt>Scars</dt><dd id="stat-scars">0</dd></div>
+      <div class="stress"><dt>Hotspots</dt><dd id="stat-stress">0</dd></div>
+      <div><dt>Nutrients</dt><dd id="stat-nutrients">0</dd></div>
+    </dl>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" class="tab active" data-tab="organs" id="tab-organs" aria-selected="true">Organs</button>
+      <button role="tab" class="tab" data-tab="diagnosis" id="tab-diagnosis" aria-selected="false">Diagnosis</button>
+      <button role="tab" class="tab" data-tab="genes" id="tab-genes" aria-selected="false">Genes</button>
+    </div>
+    <div class="tab-body">
+      <ul id="organ-list" class="list" data-pane="organs"></ul>
+      <div id="diagnosis" data-pane="diagnosis" hidden></div>
+      <div id="genes" data-pane="genes" hidden></div>
+    </div>
+    <p id="truncation-note" class="muted small note" hidden></p>
+  </aside>
+
+  <!-- Cell inspector -->
+  <section id="inspector" class="inspector glass" hidden aria-live="polite">
+    <button class="close" id="inspector-close" aria-label="Close inspector">×</button>
+    <p class="eyebrow small" id="insp-organ">organ</p>
+    <h3 id="insp-name">file</h3>
+    <p class="path" id="insp-path"></p>
+    <div class="badges" id="insp-badges"></div>
+    <dl class="mini-stats">
+      <div><dt>Size</dt><dd id="insp-size">—</dd></div>
+      <div><dt><i class="dot out"></i>Imports</dt><dd id="insp-out">—</dd></div>
+      <div><dt><i class="dot in"></i>Imported by</dt><dd id="insp-in">—</dd></div>
+      <div title="Files affected directly or transitively if this file changes"><dt>Blast radius</dt><dd id="insp-reach">—</dd></div>
+    </dl>
+    <a id="insp-link" class="btn btn-ghost" target="_blank" rel="noopener">View source ↗</a>
+  </section>
+
+  <!-- Filter dock -->
+  <nav class="dock glass" aria-label="View filters">
+    <div class="seg" role="radiogroup">
+      <button class="seg-btn active" data-filter="all" id="filter-all" role="radio" aria-checked="true">Whole organism</button>
+      <button class="seg-btn" data-filter="scars" id="filter-scars" role="radio" aria-checked="false"><i class="dot scar"></i>Scar tissue</button>
+      <button class="seg-btn" data-filter="stress" id="filter-stress" role="radio" aria-checked="false"><i class="dot stress"></i>Hotspots</button>
+    </div>
+    <label class="toggle" for="veins-toggle">
+      <input type="checkbox" id="veins-toggle" checked />
+      <span class="switch"></span> Veins
+    </label>
+    <button class="icon-btn" id="fit-btn" title="Reset view" aria-label="Reset view">
+      <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    </button>
+  </nav>
+
+  <!-- Loader -->
+  <div id="loader" class="loader" hidden>
+    <div class="loader-card glass">
+      <div class="dna-spinner" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <p id="loader-msg">Sequencing genome…</p>
+      <div class="bar"><span id="loader-bar"></span></div>
+    </div>
+  </div>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <dialog id="token-dialog" class="glass">
+    <form method="dialog" id="token-form">
+      <h3>GitHub token <span class="muted">(optional)</span></h3>
+      <p class="muted small">Unauthenticated requests are limited to 60/hr. A token raises it to 5,000/hr and allows private repos. It stays in <b>your browser only</b>.</p>
+      <input type="password" id="token-input" placeholder="ghp_…" autocomplete="off" />
+      <div class="row">
+        <button value="clear" class="btn btn-ghost" id="token-clear">Clear</button>
+        <button value="save" class="btn btn-primary" id="token-save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

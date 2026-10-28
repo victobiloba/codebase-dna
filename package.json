@@ -1,0 +1,13 @@
+{
+  "name": "codebase-dna",
+  "version": "0.1.0",
+  "description": "Visualise any GitHub repository as a living organism.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "license": "UNLICENSED"
+}
